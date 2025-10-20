@@ -2,13 +2,96 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Chúc mừng 20/10!</title>
+  <title>Chúc mừng 20/10 💖</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background-color: #fff0f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+      font-family: 'Segoe Script', cursive;
+    }
+
+    .heart {
+      position: relative;
+      width: 100px;
+      height: 90px;
+      background: transparent;
+      opacity: 0;
+      animation: showHeart 3s ease-in-out forwards;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 100px;
+      height: 160px;
+      background: #ff3366;
+      border-radius: 100px 100px 0 0;
+      transform: rotate(-45deg);
+      top: 0;
+      left: 0;
+    }
+
+    .heart::after {
+      left: auto;
+      right: 0;
+      transform: rotate(45deg);
+    }
+
+    @keyframes showHeart {
+      0% {transform: scale(0.2); opacity: 0;}
+      50% {transform: scale(1.2); opacity: 1;}
+      100% {transform: scale(1); opacity: 1;}
+    }
+
+    .flower {
+      position: absolute;
+      top: -10px;
+      font-size: 20px;
+      animation: fall linear forwards;
+    }
+
+    @keyframes fall {
+      0% {transform: translateY(0) rotate(0);}
+      100% {transform: translateY(100vh) rotate(720deg);}
+    }
+
+    .text {
+      font-size: 2em;
+      color: #e60073;
+      opacity: 0;
+      animation: showText 3s ease-in 5s forwards;
+    }
+
+    @keyframes showText {
+      0% {opacity: 0; transform: translateY(30px);}
+      100% {opacity: 1; transform: translateY(0);}
+    }
+  </style>
 </head>
-<body style="text-align:center; background-color:#fff0f5;">
-  <h2>💐 Chúc mừng Ngày Phụ Nữ Việt Nam 20/10 💐</h2>
-  <video width="80%" autoplay controls>
-    <source src="https://linkdenfilecuaban.com/video.mp4" type="video/mp4">
-  </video>
-  <p>Gửi tặng bạn lời chúc ngọt ngào từ Thiên Hương Phát 🌸</p>
+<body>
+  <div class="heart"></div>
+  <div class="text">💐 Chúc mừng Ngày Phụ Nữ Việt Nam 20/10 💐</div>
+
+  <script>
+    // Tạo hiệu ứng hoa rơi
+    const flowers = ['🌸', '🌷', '🌺', '💮', '🌹'];
+    setInterval(() => {
+      const flower = document.createElement('div');
+      flower.classList.add('flower');
+      flower.innerText = flowers[Math.floor(Math.random() * flowers.length)];
+      flower.style.left = Math.random() * window.innerWidth + 'px';
+      flower.style.animationDuration = (3 + Math.random() * 3) + 's';
+      document.body.appendChild(flower);
+      setTimeout(() => flower.remove(), 6000);
+    }, 300);
+  </script>
 </body>
 </html>
+
