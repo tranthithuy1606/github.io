@@ -1,108 +1,60 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Chúc mừng 20/10 💖</title>
-  <style>
-    :root{
-      --pink:#ff3b8d; --rose:#ff6aa2; --magenta:#ea3a8b;
-      --bg1:#fde7f1; --bg2:#fff0f7; --text:#b31364;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;}
-    body{
-      overflow:hidden; color:var(--text);
-      background:
-        radial-gradient(1200px 800px at 10% -10%, #fff6fb 0%, transparent 60%),
-        radial-gradient(900px 600px at 110% 10%, #ffeef7 0%, transparent 60%),
-        linear-gradient(135deg, var(--bg1), var(--bg2));
-    }
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Chúc mừng 20/10 💐</title>
+<style>
+  :root{--pink:#ff3b8d;--magenta:#ea3a8b;--bg1:#fde7f1;--bg2:#fff0f7;--text:#a01257}
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;font-family:'Poppins',sans-serif;overflow:hidden;background:linear-gradient(135deg,var(--bg1),var(--bg2));color:var(--text)}
+  /* Bokeh lung linh */
+  .bokeh{position:fixed;inset:0;pointer-events:none;filter:blur(8px)}
+  .bokeh span{position:absolute;width:120px;height:120px;border-radius:50%;
+    background:radial-gradient(#ffffffaa,#ffffff10 60%,transparent 70%);
+    animation:float var(--dur) linear infinite;left:var(--x);top:var(--y)}
+  @keyframes float{from{transform:translateY(0) scale(var(--s));opacity:.6}to{transform:translateY(-120vh) scale(var(--s));opacity:0}}
 
-    /* Bokeh */
-    .bokeh{
-      position:fixed; inset:0; pointer-events:none; overflow:hidden;
-      filter: blur(8px) saturate(110%);
-    }
-    .bokeh span{
-      position:absolute; width:140px; height:140px; border-radius:50%;
-      background: radial-gradient(#ffffffaa, #ffffff20 60%, transparent 70%);
-      animation: float var(--dur) linear infinite;
-      left: var(--x);
-      top: var(--y);
-    }
-    @keyframes float{
-      from{ transform: translateY(20vh) scale(var(--s)); opacity:.6;}
-      to{ transform: translateY(-120vh) scale(var(--s)); opacity:0;}
-    }
+  /* Trang chính */
+  .stage{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;text-align:center}
+  .heartWrap{opacity:0;transform:scale(.6);animation:heartIn 3s ease forwards .2s;filter:drop-shadow(0 10px 30px #ff5aa84d)}
+  @keyframes heartIn{0%{opacity:0;transform:scale(.3)}60%{opacity:1;transform:scale(1.1)}100%{opacity:1;transform:scale(1)}}
+  .heart{width:min(40vmin,240px);aspect-ratio:1/1;fill:url(#g);animation:pulse 2.2s ease-in-out infinite 3s}
+  @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
 
-    /* Khung trung tâm */
-    .stage{
-      position:relative; height:100%; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:28px; text-align:center;
-    }
+  /* Câu chúc */
+  .textBox{position:absolute;bottom:12vh;display:flex;flex-direction:column;align-items:center;gap:10px}
+  .wish{font-size:min(5vmin,26px);font-weight:600;opacity:0;animation:fadeInOut 12s infinite ease-in-out;color:#d4006e}
+  @keyframes fadeInOut{
+    0%{opacity:0;transform:translateY(20px)}
+    10%,40%{opacity:1;transform:translateY(0)}
+    60%,100%{opacity:0;transform:translateY(-20px)}
+  }
 
-    /* Trái tim SVG */
-    .heartWrap{opacity:0; transform:scale(.7); animation: heartIn 2.8s ease forwards .2s; filter: drop-shadow(0 10px 30px #ff5aa84d);}
-    @keyframes heartIn{
-      0%{opacity:0; transform:scale(.4)}
-      60%{opacity:1; transform:scale(1.12)}
-      100%{opacity:1; transform:scale(1)}
-    }
-    .heart{
-      width:min(38vmin,240px);
-      aspect-ratio:1/1;
-      fill:url(#g);
-      animation:pulse 2.2s ease-in-out infinite 3.2s;
-    }
-    @keyframes pulse{
-      0%,100%{transform:scale(1)}
-      50%{transform:scale(1.06)}
-    }
+  /* Cánh hoa rơi */
+  canvas#petals{position:fixed;inset:0;pointer-events:none;z-index:1}
 
-    /* Chữ cuối */
-    .title{
-      font-weight:700; letter-spacing:.5px; font-size:min(6.2vmin,36px);
-      opacity:0; transform:translateY(12px);
-      animation: showText .9s ease-out forwards 4.2s, type 3.2s steps(30,end) 4.2s forwards;
-      white-space:nowrap; overflow:hidden; border-right: 2px solid transparent;
-    }
-    @keyframes showText{to{opacity:1; transform:translateY(0)}}
-    @keyframes type{ from{width:0} to{width:100%} }
-
-    .subtitle{opacity:0; font-size:14px; letter-spacing:.3px}
-    .subtitle.show{animation:fade .9s ease-out forwards 6.8s}
-    @keyframes fade{to{opacity:.9}}
-
-    /* Canvas hoa rơi */
-    canvas#petals{position:fixed; inset:0; pointer-events:none;}
-
-    /* Nút bật nhạc */
-    .gate{
-      position:fixed; inset:0; display:grid; place-items:center; background:linear-gradient(135deg,#ffffffcc,#fff6fbcc); backdrop-filter: blur(6px);
-      transition:opacity .5s ease; z-index:20;
-    }
-    .gate.hide{opacity:0; visibility:hidden}
-    .btn{
-      background: linear-gradient(135deg, var(--pink), var(--magenta));
-      color:white; border:none; padding:14px 22px; border-radius:999px; font-weight:700; cursor:pointer;
-      box-shadow: 0 10px 30px #ff7ab94d; transform:translateY(0); transition: transform .15s ease, box-shadow .2s ease;
-    }
-    .btn:hover{transform:translateY(-2px); box-shadow:0 14px 34px #ff7ab966}
-    .btn:active{transform:translateY(0)}
-    .hint{margin-top:10px; color:#9b3a6f; font-size:12px}
-  </style>
+  /* Ảnh hoa góc */
+  .decor{position:fixed;opacity:.8;filter:drop-shadow(0 4px 10px #ff8ab94d)}
+  .d1{left:2vw;top:2vh;width:min(20vmin,120px);animation:wiggle 6s ease-in-out infinite}
+  .d2{right:2vw;bottom:2vh;width:min(22vmin,140px);animation:wiggle 5s ease-in-out infinite}
+  @keyframes wiggle{0%,100%{transform:rotate(0)}50%{transform:rotate(2deg)}}
+</style>
 </head>
 <body>
-  <!-- Lớp bokeh lung linh -->
-  <div class="bokeh" aria-hidden="true"></div>
+  <!-- Bokeh -->
+  <div class="bokeh"></div>
+
+  <!-- Hoa góc -->
+  <img class="decor d1" src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f33c.svg" alt="hoa">
+  <img class="decor d2" src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f339.svg" alt="hoa">
 
   <!-- Cánh hoa rơi -->
   <canvas id="petals"></canvas>
 
-  <!-- Nội dung trung tâm -->
-  <div class="stage" aria-live="polite">
+  <div class="stage">
     <div class="heartWrap">
-      <svg class="heart" viewBox="0 0 100 100" aria-label="Trái tim">
+      <svg class="heart" viewBox="0 0 100 100" aria-label="Trái tim">
         <defs>
           <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
             <stop offset="0%" stop-color="#ff7ab9"/>
@@ -113,108 +65,61 @@
         <path d="M50 86 C20 62 6 46 6 29 a19 19 0 0 1 36 -5 a1 1 0 0 0 16 0 a19 19 0 0 1 36 5 c0 17 -14 33 -44 57z"/>
       </svg>
     </div>
-    <div class="title">💐 Chúc mừng Ngày Phụ Nữ Việt Nam 20/10 💐</div>
-    <div class="subtitle">Từ Thiên Hương Phát & Emy – kính gửi lời yêu thương!</div>
-  </div>
 
-  <!-- Nút mở nhạc -->
-  <div class="gate" id="gate">
-    <div style="text-align:center">
-      <button class="btn" id="start">Bật nhạc & xem hiệu ứng</button>
-      <div class="hint">Nhấn để phát nhạc (đảm bảo hoạt động trên điện thoại)</div>
+    <div class="textBox">
+      <div class="wish" style="animation-delay:0s;">💐 Chúc bạn luôn xinh đẹp, tự tin và tỏa sáng mỗi ngày!</div>
+      <div class="wish" style="animation-delay:4s;">🌷 Chúc mọi người phụ nữ sẽ luôn được yêu thương, trân trọng và hạnh phúc!</div>
+      <div class="wish" style="animation-delay:8s;">💖 Cảm ơn vì đã mang đến thế giới này sự dịu dàng và ấm áp!</div>
+      <div class="wish" style="animation-delay:12s;">🌸 Chúc mừng Ngày Phụ Nữ Việt Nam 20/10 – mãi rạng rỡ nhé!</div>
     </div>
   </div>
 
-  <!-- Nhạc nền: thay bằng file trong repo của bạn, ví dụ music.mp3 -->
-  <audio id="bgm" src="music.mp3" loop preload="auto"></audio>
-
   <script>
-    // --------- Bật nhạc & reveal ----------
-    const btn = document.getElementById('start');
-    const gate = document.getElementById('gate');
-    const bgm = document.getElementById('bgm');
-    const subtitle = document.querySelector('.subtitle');
-
-    btn.addEventListener('click', async () => {
-      try {
-        bgm.volume = 0; // fade-in
-        await bgm.play();
-        gate.classList.add('hide');
-        subtitle.classList.add('show');
-        let v = 0;
-        const fade = setInterval(() => { v += 0.02; bgm.volume = Math.min(v, 0.6); if (v>=0.6) clearInterval(fade); }, 80);
-      } catch(e){
-        alert('Trình duyệt chặn tự phát nhạc. Hãy thử nhấn lại nhé!');
-      }
-    });
-
-    // --------- Bokeh tạo sẵn ----------
+    // Bokeh
     (function makeBokeh(){
-      const holder = document.querySelector('.bokeh');
-      for (let i=0;i<14;i++){
-        const s = document.createElement('span');
-        s.style.setProperty('--x', Math.random()*100+'%');
-        s.style.setProperty('--y', Math.random()*100+'%');
-        s.style.setProperty('--dur', (8+Math.random()*10)+'s');
-        s.style.setProperty('--s', (0.5+Math.random()*1.4).toFixed(2));
+      const holder=document.querySelector('.bokeh');
+      for(let i=0;i<15;i++){
+        const s=document.createElement('span');
+        s.style.setProperty('--x',Math.random()*100+'%');
+        s.style.setProperty('--y',Math.random()*100+'%');
+        s.style.setProperty('--dur',(8+Math.random()*10)+'s');
+        s.style.setProperty('--s',(0.5+Math.random()*1.3).toFixed(2));
         holder.appendChild(s);
       }
     })();
 
-    // --------- Cánh hoa rơi bằng canvas ----------
-    const canvas = document.getElementById('petals');
-    const ctx = canvas.getContext('2d');
-    let W, H, petals=[];
-    function resize(){
-      W = canvas.width = innerWidth;
-      H = canvas.height = innerHeight;
-    }
-    addEventListener('resize', resize); resize();
+    // Hoa rơi
+    const canvas=document.getElementById('petals'), ctx=canvas.getContext('2d');
+    let W,H,petals=[];
+    function resize(){W=canvas.width=innerWidth;H=canvas.height=innerHeight;}
+    addEventListener('resize',resize);resize();
 
     function Petal(){
-      this.x = Math.random()*W;
-      this.y = -20 - Math.random()*H;
-      this.r = 6 + Math.random()*10;
-      this.speed = 0.8 + Math.random()*1.2;
-      this.swing = Math.random()*2 + 1;
-      this.angle = Math.random()*Math.PI*2;
-      this.omega = (Math.random()*0.02 + 0.01) * (Math.random()<.5?-1:1);
-      this.color = ['#ff9ec4','#ff7ab9','#ffd1e4'][Math.floor(Math.random()*3)];
+      this.x=Math.random()*W;
+      this.y=-20-Math.random()*H;
+      this.r=6+Math.random()*10;
+      this.speed=.8+Math.random()*1.2;
+      this.swing=Math.random()*2+1;
+      this.angle=Math.random()*Math.PI*2;
+      this.omega=(Math.random()*0.02+0.01)*(Math.random()<.5?-1:1);
+      this.color=['#ff9ec4','#ff7ab9','#ffd1e4'][Math.floor(Math.random()*3)];
     }
-    Petal.prototype.update = function(){
-      this.y += this.speed;
-      this.angle += this.omega;
-      this.x += Math.sin(this.angle)*this.swing;
-      if (this.y - this.r > H || this.x < -50 || this.x > W+50) {
-        // reset
-        Petal.call(this);
-        this.y = -20;
-      }
+    Petal.prototype.update=function(){
+      this.y+=this.speed;this.angle+=this.omega;this.x+=Math.sin(this.angle)*this.swing;
+      if(this.y-this.r>H||this.x<-50||this.x>W+50){Petal.call(this);this.y=-20;}
     }
-    Petal.prototype.draw = function(){
-      ctx.save();
-      ctx.translate(this.x, this.y);
-      ctx.rotate(this.angle*0.6);
-      // cánh hoa kiểu “drop”
-      ctx.fillStyle = this.color;
-      ctx.beginPath();
-      ctx.moveTo(0, -this.r);
-      ctx.quadraticCurveTo(this.r, -this.r, this.r*0.8, 0);
-      ctx.quadraticCurveTo(this.r*0.2, this.r*0.9, 0, this.r*1.2);
-      ctx.quadraticCurveTo(-this.r*0.2, this.r*0.9, -this.r*0.8, 0);
-      ctx.quadraticCurveTo(-this.r, -this.r, 0, -this.r);
-      ctx.closePath();
-      ctx.fill();
+    Petal.prototype.draw=function(){
+      ctx.save();ctx.translate(this.x,this.y);ctx.rotate(this.angle*0.6);
+      ctx.fillStyle=this.color;ctx.beginPath();
+      ctx.moveTo(0,-this.r);
+      ctx.quadraticCurveTo(this.r,-this.r,this.r*.8,0);
+      ctx.quadraticCurveTo(this.r*.2,this.r*.9,0,this.r*1.2);
+      ctx.quadraticCurveTo(-this.r*.2,this.r*.9,-this.r*.8,0);
+      ctx.quadraticCurveTo(-this.r,-this.r,0,-this.r);ctx.closePath();ctx.fill();
       ctx.restore();
     }
-
-    for (let i=0;i<80;i++) petals.push(new Petal());
-    function loop(){
-      ctx.clearRect(0,0,W,H);
-      petals.forEach(p=>{p.update(); p.draw()});
-      requestAnimationFrame(loop);
-    }
-    loop();
+    for(let i=0;i<80;i++)petals.push(new Petal());
+    (function loop(){ctx.clearRect(0,0,W,H);petals.forEach(p=>{p.update();p.draw()});requestAnimationFrame(loop);})();
   </script>
 </body>
 </html>
